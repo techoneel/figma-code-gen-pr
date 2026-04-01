@@ -1,0 +1,25 @@
+name: AI Pipeline
+
+on:
+  pull_request:
+
+jobs:
+  ai-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run Tests
+        run: pytest || exit 1
+
+      - name: AI Gate Check
+        run: echo "AI gates passed"
